@@ -2,7 +2,7 @@
 """Live viewer for the RealSense D435i: colour, depth, both IR cameras and IMU.
 
 Run with the project venv (uses the RSUSB librealsense build so the IMU works):
-    .venv/bin/python realsense_viewer.py
+    .venv/bin/python src/realsense_viewer.py
 
 Keys:
     q / Esc   quit

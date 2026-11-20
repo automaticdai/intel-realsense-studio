@@ -4,7 +4,7 @@ Tools for working with an Intel RealSense **D435i**, including on **WSL2**.
 
 ## Viewer
 
-`realsense_viewer.py` opens one window with six live panels:
+`src/realsense_viewer.py` opens one window with six live panels:
 
 | | | |
 |---|---|---|
@@ -12,8 +12,8 @@ Tools for working with an Intel RealSense **D435i**, including on **WSL2**.
 | Accelerometer (x/y/z, 4 s) | Gyro (x/y/z, 4 s) | IR right |
 
 ```bash
-.venv/bin/python realsense_viewer.py              # interactive window
-.venv/bin/python realsense_viewer.py --snapshot out.png   # render one frame, no window
+.venv/bin/python src/realsense_viewer.py              # interactive window
+.venv/bin/python src/realsense_viewer.py --snapshot out.png   # render one frame, no window
 ```
 
 | Key | Action |
