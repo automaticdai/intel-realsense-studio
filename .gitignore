@@ -1,0 +1,11 @@
+# Local librealsense source build (RSUSB backend) and install output
+librealsense/
+install/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Viewer output
+snapshots/
