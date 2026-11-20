@@ -47,7 +47,7 @@ The PyPI `pyrealsense2` wheel streams video under WSL2 but **cannot see the IMU*
 3. **Build librealsense** (tested with v2.59.2):
    ```bash
    git clone --depth 1 -b v2.59.2 https://github.com/IntelRealSense/librealsense.git
-   uv venv .venv && uv pip install --python .venv/bin/python numpy opencv-python
+   uv venv .venv && uv pip install --python .venv/bin/python -r requirements.txt
    cmake -S librealsense -B librealsense/build -DCMAKE_BUILD_TYPE=Release \
      -DFORCE_RSUSB_BACKEND=ON -DBUILD_PYTHON_BINDINGS=ON \
      -DPYTHON_EXECUTABLE=$PWD/.venv/bin/python \

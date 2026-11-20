@@ -1,0 +1,10 @@
+# Tested with numpy 2.5.5 and opencv-python 5.1.0.95
+numpy>=1.24
+opencv-python>=4.8
+
+# pyrealsense2 is deliberately NOT listed.
+# - WSL2 (or anywhere you need the IMU without kernel HID drivers): build librealsense
+#   with the RSUSB backend and link its bindings into the venv. See README "Setup on WSL2".
+#   Installing the PyPI wheel into that venv would shadow the build and hide the IMU.
+# - Native Linux / Windows with working drivers: the PyPI wheel is enough:
+#     pip install pyrealsense2
