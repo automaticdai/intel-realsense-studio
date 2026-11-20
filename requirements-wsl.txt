@@ -1,0 +1,6 @@
+# WSL2: pyrealsense2 is deliberately NOT listed.
+# Build librealsense with the RSUSB backend and link its bindings into the venv
+# (README "Setup on WSL2"). The PyPI wheel would shadow that build and hide the IMU.
+# Tested with numpy 2.5.5, opencv-python 5.1.0.95
+numpy>=1.24
+opencv-python>=4.8

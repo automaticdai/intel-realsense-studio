@@ -25,6 +25,15 @@ Tools for working with an Intel RealSense **D435i**, including on **WSL2**.
 
 Video runs at 848×480 @ 30 fps. The IMU runs with the accelerometer at 200 Hz and the gyro at 400 Hz. The D435i supports accelerometer rates of 100, 200 and 400 Hz and gyro rates of 200 and 400 Hz only.
 
+## Setup on native Linux / Windows
+
+```bash
+python -m venv .venv
+.venv/bin/pip install -r requirements.txt
+```
+
+This installs the PyPI `pyrealsense2` wheel, which works where the OS has the drivers for the camera's sensors.
+
 ## Setup on WSL2 (needed for the IMU)
 
 The PyPI `pyrealsense2` wheel streams video under WSL2 but **cannot see the IMU**. The stock WSL kernel lacks `CONFIG_HID_SENSOR_HUB`, the driver the default backend needs to read the D435i's motion sensor. The fix is to build librealsense with the **RSUSB** backend, which talks to the camera over libusb instead.
@@ -47,7 +56,7 @@ The PyPI `pyrealsense2` wheel streams video under WSL2 but **cannot see the IMU*
 3. **Build librealsense** (tested with v2.59.2):
    ```bash
    git clone --depth 1 -b v2.59.2 https://github.com/IntelRealSense/librealsense.git
-   uv venv .venv && uv pip install --python .venv/bin/python -r requirements.txt
+   uv venv .venv && uv pip install --python .venv/bin/python -r requirements-wsl.txt
    cmake -S librealsense -B librealsense/build -DCMAKE_BUILD_TYPE=Release \
      -DFORCE_RSUSB_BACKEND=ON -DBUILD_PYTHON_BINDINGS=ON \
      -DPYTHON_EXECUTABLE=$PWD/.venv/bin/python \
@@ -62,7 +71,7 @@ The PyPI `pyrealsense2` wheel streams video under WSL2 but **cannot see the IMU*
      "$(.venv/bin/python -c 'import site;print(site.getsitepackages()[0])')/pyrealsense2-local.pth"
    .venv/bin/python -c "import pyrealsense2 as rs; print(rs.__file__)"   # should point into librealsense/build
    ```
-   Do **not** `pip install pyrealsense2` into this venv. It would shadow the RSUSB build and the IMU would disappear.
+   Do **not** `pip install pyrealsense2` (or `-r requirements.txt`) into this venv. It would shadow the RSUSB build and the IMU would disappear.
 
 Tools such as `rs-enumerate-devices` and `rs-fw-update` end up in `librealsense/build/Release/`.
 
@@ -70,4 +79,3 @@ Tools such as `rs-enumerate-devices` and `rs-fw-update` end up in `librealsense/
 
 - With the RSUSB backend, only one pipeline can open the device. The viewer therefore starts the IMU directly on the Motion Module sensor of the device that the video pipeline opened.
 - If you re-attach the camera with usbipd and access fails, run `sudo udevadm trigger`.
-- On native Linux with the default V4L backend, the PyPI wheel is usually enough and steps 2 to 4 are optional.
